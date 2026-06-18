@@ -2,11 +2,11 @@
   "caseId": "case4",
   "title": "Caso 4: Erros de Verbos Irregulares (1 VFU)",
   "blockId": "english-past-verbs",
-  "description": "Estudante erra o passado de 'buy' ('buyed') e usa o passado simples após o auxiliar 'have' ('have drove'), mas demonstra conhecer outros verbos irregulares ('has eaten').",
+  "description": "Estudante erra o passado de \"buy\" (\"buyed\") e usa o passado simples após o auxiliar \"have\" (\"have drove\"), mas demonstra conhecer outros verbos irregulares (\"has eaten\").",
   "artifact": "I buyed a new car yesterday and I have drove it to work. My brother has eaten his sandwich already.",
-  "narrative": "Escrevi 'buyed' para colocar o verbo 'buy' no passado simples. E usei 'have drove' porque dirigi o carro ontem e continuo dirigindo ele até o trabalho hoje. Usei 'has eaten' porque meu irmão já terminou de comer.",
+  "narrative": "Escrevi \"buyed\" para colocar o verbo \"buy\" no passado simples. E usei \"have drove\" porque dirigi o carro ontem e continuo dirigindo ele até o trabalho hoje. Usei \"has eaten\" porque meu irmão já terminou de comer.",
   "expectedVFUs": 1,
   "suggestedAnswers": [
-    "Vejo que cometi erros na conjugação de verbos irregulares. O passado simples de 'buy' é 'bought', e não 'buyed'. E ao usar o Present Perfect ('have'), eu deveria usar o particípio 'driven' em vez do passado simples 'drove'. O correto seria: 'I bought a new car yesterday and I have driven it to work'."
+    "Vejo que cometi erros na conjugação de verbos irregulares. O passado simples de \"buy\" é \"bought\", e não \"buyed\". E ao usar o Present Perfect (\"have\"), eu deveria usar o particípio \"driven\" em vez do passado simples \"drove\". O correto seria: \"I bought a new car yesterday and I have driven it to work\"."
   ]
 }

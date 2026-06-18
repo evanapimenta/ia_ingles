@@ -2,12 +2,12 @@
   "caseId": "case1",
   "title": "Caso 1: Erro Complexo (2 VFUs)",
   "blockId": "english-past-verbs",
-  "description": "Estudante usa sufixo -ed para verbos irregulares ('drinked', 'goed') e usa Present Perfect com marcador de tempo passado definido ('Yesterday I have gone').",
+  "description": "Estudante usa sufixo -ed para verbos irregulares (\"drinked\", \"goed\") e usa Present Perfect com marcador de tempo passado definido (\"Yesterday I have gone\").",
   "artifact": "I drinked a cup of coffee and then I goed to the library. Yesterday I have gone to study there.",
-  "narrative": "Eu quis descrever minhas ações de ontem. Adicionei -ed nos verbos 'drink' e 'go' para colocá-los no passado, pois aprendi que o passado se forma assim. Também usei 'have gone' com 'yesterday' porque a ida à biblioteca já terminou.",
+  "narrative": "Eu quis descrever minhas ações de ontem. Adicionei -ed nos verbos \"drink\" e \"go\" para colocá-los no passado, pois aprendi que o passado se forma assim. Também usei \"have gone\" com \"yesterday\" porque a ida à biblioteca já terminou.",
   "expectedVFUs": 2,
   "suggestedAnswers": [
-    "Eu percebo agora que 'drink' e 'go' são verbos irregulares e não seguem a regra geral de adicionar -ed. O passado simples de 'drink' é 'drank' e o de 'go' é 'went'. Portanto, deveria ser 'I drank' e 'I went'.",
-    "Entendi. O advérbio 'yesterday' refere-se a um tempo totalmente concluído no passado. O Present Perfect não deve ser usado com marcadores de tempo específicos como ontem, ano passado, etc. O correto é usar o Simple Past: 'Yesterday I went to study there'."
+    "Eu percebo agora que \"drink\" e \"go\" são verbos irregulares e não seguem a regra geral de adicionar -ed. O passado simples de \"drink\" é \"drank\" e o de \"go\" é \"went\". Portanto, deveria ser \"I drank\" e \"I went\".",
+    "Entendi. O advérbio \"yesterday\" refere-se a um tempo totalmente concluído no passado. O Present Perfect não deve ser usado com marcadores de tempo específicos como ontem, ano passado, etc. O correto é usar o Simple Past: \"Yesterday I went to study there\"."
   ]
 }

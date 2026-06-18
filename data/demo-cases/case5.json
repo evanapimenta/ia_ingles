@@ -4,7 +4,7 @@
   "blockId": "english-past-verbs",
   "description": "Estudante demonstra domínio completo na aplicação e na explicação de verbos regulares, irregulares, Simple Past e Present Perfect.",
   "artifact": "Yesterday, I walked to the library and borrowed a book. I have read three novels this week.",
-  "narrative": "Usei o Simple Past 'walked' e 'borrowed' porque são ações completadas ontem, que é um tempo específico e fechado no passado. Usei o Present Perfect 'have read' com 'this week' porque a semana ainda não terminou e a ação de ler pode continuar.",
+  "narrative": "Usei o Simple Past \"walked\" e \"borrowed\" porque são ações completadas ontem, que é um tempo específico e fechado no passado. Usei o Present Perfect \"have read\" com \"this week\" porque a semana ainda não terminou e a ação de ler pode continuar.",
   "expectedVFUs": 0,
   "suggestedAnswers": []
 }

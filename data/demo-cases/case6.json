@@ -4,7 +4,7 @@
   "blockId": "english-past-verbs",
   "description": "Outro exemplo de estudante que demonstra domínio completo do Simple Past e Present Perfect sem apresentar conceptions errôneas.",
   "artifact": "We ate dinner at 7 PM. They have already finished their homework. He traveled to London last year.",
-  "narrative": "Usei o Simple Past 'ate' e 'traveled' pois as ações aconteceram em momentos específicos do passado ('at 7 PM' e 'last year'). Já para a segunda frase, utilizei o Present Perfect 'have already finished' porque a ação acabou de ocorrer e não há um marcador de tempo específico.",
+  "narrative": "Usei o Simple Past \"ate\" e \"traveled\" pois as ações aconteceram em momentos específicos do passado (\"at 7 PM\" e \"last year\"). Já para a segunda frase, utilizei o Present Perfect \"have already finished\" porque a ação acabou de ocorrer e não há um marcador de tempo específico.",
   "expectedVFUs": 0,
   "suggestedAnswers": []
 }

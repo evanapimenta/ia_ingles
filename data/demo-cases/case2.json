@@ -2,12 +2,12 @@
   "caseId": "case2",
   "title": "Caso 2: Confusão entre Went e Gone (2 VFUs)",
   "blockId": "english-past-verbs",
-  "description": "Estudante usa 'have went' com marcador de tempo e usa 'gone' sem auxiliar ('I gone to the store'), indicando confusão na distinção entre Simple Past e Past Participle.",
+  "description": "Estudante usa \"have went\" com marcador de tempo e usa \"gone\" sem auxiliar (\"I gone to the store\"), indicando confusão na distinção entre Simple Past e Past Participle.",
   "artifact": "I have went to New York last summer. He has gone home already. I gone to the store.",
-  "narrative": "Usei 'have went' porque queria colocar a ação no passado e usei 'went'. E usei 'gone' sozinho na última frase porque acho que 'went' e 'gone' significam a mesma coisa no passado e podem ser usados de qualquer forma.",
+  "narrative": "Usei \"have went\" porque queria colocar a ação no passado e usei \"went\". E usei \"gone\" sozinho na última frase porque acho que \"went\" e \"gone\" significam a mesma coisa no passado e podem ser usados de qualquer forma.",
   "expectedVFUs": 2,
   "suggestedAnswers": [
-    "Compreendo agora que 'went' é o Simple Past (passado simples) de 'go' e não deve ser acompanhado pelo auxiliar 'have'. 'Gone' é o Past Participle (particípio) e exige o auxiliar 'have/has' para tempos compostos. Logo, 'have went' está incorreto; deveria ser 'I went to New York' ou 'I have gone'.",
-    "Para a frase 'I gone to the store', o correto seria usar o Simple Past diretamente sem auxiliar: 'I went to the store', já que o particípio 'gone' sozinho não funciona como tempo verbal passado na frase."
+    "Compreendo agora que \"went\" é o Simple Past (passado simples) de \"go\" e não deve ser acompanhado pelo auxiliar \"have\". \"Gone\" é o Past Participle (particípio) e exige o auxiliar \"have/has\" para tempos compostos. Logo, \"have went\" está incorreto; deveria ser \"I went to New York\" ou \"I have gone\".",
+    "Para a frase \"I gone to the store\", o correto seria usar o Simple Past diretamente sem auxiliar: \"I went to the store\", já que o particípio \"gone\" sozinho não funciona como tempo verbal passado na frase."
   ]
 }
