@@ -1,0 +1,38 @@
+{
+  "blockId": "english-past-verbs",
+  "blockName": "English Past Tense Mastery",
+  "learningObjectives": [
+    "Recognize regular verbs",
+    "Recognize irregular verbs",
+    "Use Simple Past correctly",
+    "Use Past Participle correctly",
+    "Differentiate Simple Past and Present Perfect",
+    "Explain grammatical choices"
+  ],
+  "expectedEvidence": [
+    "Correct regular verb formation",
+    "Correct irregular verb recognition",
+    "Correct Simple Past usage",
+    "Correct Past Participle usage",
+    "Context-aware tense selection",
+    "Ability to explain reasoning"
+  ],
+  "misconceptionPatterns": [
+    "All past verbs end with ed",
+    "Went and gone are interchangeable",
+    "Past Participle equals Simple Past",
+    "Present Perfect can be used with explicit past time markers",
+    "Irregular verbs follow regular patterns"
+  ],
+  "rubricCriteria": [
+    "Regular Verb Formation",
+    "Irregular Verb Recognition",
+    "Simple Past Usage",
+    "Past Participle Usage",
+    "Context Interpretation",
+    "Rule Explanation"
+  ],
+  "vfuPolicy": {
+    "maxVFUs": 2
+  }
+}

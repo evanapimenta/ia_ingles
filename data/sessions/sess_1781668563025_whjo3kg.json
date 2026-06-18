@@ -1,0 +1,86 @@
+{
+  "sessionId": "sess_1781668563025_whjo3kg",
+  "preBlockId": "english-past-verbs",
+  "submission": {
+    "artifact": "I drinked a cup of coffee and then I goed to the library. Yesterday I have gone to study there.",
+    "narrative": "Eu quis descrever minhas ações de ontem. Adicionei -ed nos verbos 'drink' e 'go' para colocá-los no passado, pois aprendi que o passado se forma assim. Também usei 'have gone' com 'yesterday' porque a ida à biblioteca já terminou."
+  },
+  "vfuHistory": [
+    {
+      "question": "Você já ouviu falar das palavras 'went' e 'drank'? Se sim, como você explicaria a diferença entre elas e as formas 'goed' e 'drinked' que você usou?",
+      "answer": "Sim, eu já ouvi falar de 'went' e 'drank'! Agora percebi que cometi um erro porque 'go' e 'drink' são verbos irregulares, então eles não seguem a regra de adicionar '-ed' no final. O correto seria usar 'went' e 'drank' em vez de 'goed' e 'drinked', que na verdade não existem.",
+      "hypothesisAfterVFU": {
+        "demonstratedCompetencies": [
+          "Explain grammatical choices",
+          "Ability to explain reasoning",
+          "Recognize irregular verbs",
+          "Correct irregular verb recognition"
+        ],
+        "missingCompetencies": [
+          "Use Simple Past correctly",
+          "Differentiate Simple Past and Present Perfect",
+          "Context-aware tense selection"
+        ],
+        "misconceptionsDetected": [
+          "Present Perfect can be used with explicit past time markers"
+        ],
+        "confidence": "high",
+        "needVFU": true,
+        "diagnosticHypothesis": "O aluno demonstrou compreender a diferença entre verbos regulares e irregulares após o primeiro VFU, corrigindo com sucesso o uso de 'goed' e 'drinked' para 'went' e 'drank'. No entanto, a inadequação no uso do Present Perfect ('have gone') com o marcador temporal definido 'yesterday' ainda persiste, indicando que a incompreensão sobre a diferença entre Simple Past e Present Perfect não foi resolvida.",
+        "suggestedVFU": "Na sua frase original, você escreveu 'Yesterday I have gone to study there'. Considerando que 'yesterday' indica um momento específico e concluído no passado, você acha que o uso de 'have gone' está correto? Como você reescreveria essa frase?"
+      }
+    },
+    {
+      "question": "Na sua frase original, você escreveu 'Yesterday I have gone to study there'. Considerando que 'yesterday' indica um momento específico e concluído no passado, você acha que o uso de 'have gone' está correto? Como você reescreveria essa frase?",
+      "answer": "Acho que não está correto, pois 'yesterday' define um momento exato que já acabou, então não posso usar o Present Perfect. O correto seria usar o Simple Past para ações concluídas no passado. Eu reescreveria a frase como 'Yesterday I went to study there'.",
+      "hypothesisAfterVFU": {
+        "demonstratedCompetencies": [
+          "Recognize irregular verbs",
+          "Use Simple Past correctly",
+          "Differentiate Simple Past and Present Perfect",
+          "Explain grammatical choices",
+          "Context-aware tense selection",
+          "Ability to explain reasoning"
+        ],
+        "missingCompetencies": [
+          "Use Past Participle correctly"
+        ],
+        "misconceptionsDetected": [],
+        "confidence": "high",
+        "needVFU": false,
+        "diagnosticHypothesis": "O estudante demonstrou excelente evolução e superou todas as lacunas identificadas inicialmente. No primeiro VFU, ele reconheceu que 'go' e 'drink' são verbos irregulares, corrigindo 'goed' e 'drinked' para 'went' e 'drank'. No segundo VFU, ele corrigiu com precisão o uso do Present Perfect com o marcador temporal 'yesterday', explicando corretamente que ações concluídas em um tempo específico exigem o Simple Past ('Yesterday I went to study there'). O estudante agora demonstra domínio sobre a diferenciação de tempos verbais e a formação de verbos irregulares no passado simples.",
+        "suggestedVFU": null
+      }
+    }
+  ],
+  "status": "completed",
+  "currentVFUCount": 2,
+  "createdAt": "2026-06-17T03:56:03.025Z",
+  "updatedAt": "2026-06-17T03:59:59.583Z",
+  "latestHypothesis": {
+    "demonstratedCompetencies": [
+      "Recognize irregular verbs",
+      "Use Simple Past correctly",
+      "Differentiate Simple Past and Present Perfect",
+      "Explain grammatical choices",
+      "Context-aware tense selection",
+      "Ability to explain reasoning"
+    ],
+    "missingCompetencies": [
+      "Use Past Participle correctly"
+    ],
+    "misconceptionsDetected": [],
+    "confidence": "high",
+    "needVFU": false,
+    "diagnosticHypothesis": "O estudante demonstrou excelente evolução e superou todas as lacunas identificadas inicialmente. No primeiro VFU, ele reconheceu que 'go' e 'drink' são verbos irregulares, corrigindo 'goed' e 'drinked' para 'went' e 'drank'. No segundo VFU, ele corrigiu com precisão o uso do Present Perfect com o marcador temporal 'yesterday', explicando corretamente que ações concluídas em um tempo específico exigem o Simple Past ('Yesterday I went to study there'). O estudante agora demonstra domínio sobre a diferenciação de tempos verbais e a formação de verbos irregulares no passado simples.",
+    "suggestedVFU": null
+  },
+  "teacherReport": {
+    "classification": "Completely Correct",
+    "recommendation": "Proceed",
+    "confidence": "high",
+    "mainGap": "Nenhum. O estudante corrigiu com sucesso todos os desvios iniciais durante as interações de VFU, demonstrando domínio completo sobre verbos irregulares e a diferenciação entre Simple Past e Present Perfect.",
+    "deficiencyProfile": [],
+    "rationale": "O estudante inicialmente apresentou equívocos comuns previstos no modelo pedagógico, como a aplicação de regras de verbos regulares em verbos irregulares ('drinked' e 'goed') e o uso inadequado do Present Perfect com marcadores de tempo definido ('Yesterday I have gone'). No entanto, por meio do processo de microavaliação formativa (VFUs), o estudante demonstrou excelente capacidade de autorreflexão e domínio conceitual. Na VFU 1, ele corrigiu com precisão a formação dos verbos irregulares para 'drank' e 'went', superando a concepção errônea de que todos os verbos no passado terminam em '-ed'. Na VFU 2, ele identificou corretamente que o advérbio 'yesterday' exige o Simple Past, reescrevendo a frase para 'Yesterday I went to study there' e explicando a regra gramatical com clareza. Assim, o estudante atingiu os objetivos de aprendizagem de reconhecer verbos irregulares, usar o Simple Past corretamente, diferenciar Simple Past de Present Perfect e explicar suas escolhas gramaticais, justificando a classificação de 'Completely Correct' e a recomendação de avançar ('Proceed')."
+  }
+}

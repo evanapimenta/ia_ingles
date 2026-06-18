@@ -1,0 +1,203 @@
+<div class="animate-fade-in" *ngIf="session" style="display: flex; flex-direction: column; gap: 1.5rem;">
+  
+  <!-- Header with Session Stats -->
+  <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1rem;">
+    <div>
+      <span style="color: var(--color-warning); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.25rem;">
+        Sessão de Diálogo Ativa
+      </span>
+      <h1 style="font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em;">
+        Laboratório de Verificação Cognitiva
+      </h1>
+    </div>
+    
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <span style="color: var(--text-muted); font-size: 0.85rem;">ID: <code>{{ session.sessionId }}</code></span>
+      <span class="badge badge-warning" style="font-weight: 700;">
+        VFU {{ session.currentVFUCount + 1 }} de 2
+      </span>
+    </div>
+  </div>
+
+  <mat-progress-bar mode="determinate" [value]="(session.currentVFUCount) * 50" color="accent" style="border-radius: 4px; height: 6px; margin-bottom: 0.5rem;"></mat-progress-bar>
+
+  <!-- Tri-Pane Layout Core -->
+  <div class="vfu-tri-pane">
+    
+    <!-- Pane 1 (Left): Hipótese Cognitiva -->
+    <div class="glass-panel" style="padding: 1.5rem; height: fit-content; display: flex; flex-direction: column; gap: 1.25rem;">
+      <h3 style="color: var(--color-primary); font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <mat-icon>psychology</mat-icon>
+        Hipótese Diagnóstica
+      </h3>
+      
+      <p style="font-size: 0.9rem; line-height: 1.6; color: var(--text-main); font-style: italic; background: rgba(255,255,255,0.01); padding: 1rem; border-left: 3px solid var(--color-primary); border-radius: 0 8px 8px 0;">
+        "{{ session.latestHypothesis?.diagnosticHypothesis }}"
+      </p>
+
+      <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); padding: 0.75rem 1rem; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.8rem; color: var(--text-secondary);">Certeza do LLM:</span>
+        <span class="badge" 
+              [ngClass]="{
+                'badge-success': session.latestHypothesis?.confidence === 'high',
+                'badge-warning': session.latestHypothesis?.confidence === 'medium',
+                'badge-danger': session.latestHypothesis?.confidence === 'low'
+              }" style="font-size: 0.65rem; padding: 0.25rem 0.6rem;">
+          {{ session.latestHypothesis?.confidence }}
+        </span>
+      </div>
+      
+      <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.04);" />
+      
+      <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+        <p style="font-weight: 600; color: var(--text-secondary); margin-bottom: 0.25rem;">Regra de Parada (Stop Rule):</p>
+        O diálogo encerra quando a hipótese é confirmada ou ao atingir o limite de 2 perguntas VFU.
+      </div>
+    </div>
+
+    <!-- Pane 2 (Center): Chat Dialogue -->
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <h3 style="color: var(--text-main); font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
+        <mat-icon style="color: var(--color-warning);">forum</mat-icon>
+        Histórico do Diálogo
+      </h3>
+
+      <div class="chat-container">
+        <!-- Message 0 (IA greeting & context) -->
+        <div class="chat-message msg-ia">
+          <span class="msg-sender ia">Avaliador GenAI</span>
+          <p>Olá! Analisei sua submissão inicial no bloco pedagógico de verbos no passado. Para melhor compreender seu raciocínio, preciso fazer uma pergunta de verificação.</p>
+        </div>
+
+        <!-- Dialogue loop history -->
+        <ng-container *ngFor="let step of session.vfuHistory; let idx = index">
+          <!-- IA VFU Question -->
+          <div class="chat-message msg-ia animate-fade-in">
+            <span class="msg-sender ia">Avaliador GenAI • VFU {{ idx + 1 }}</span>
+            <p>{{ step.question }}</p>
+          </div>
+          <!-- Student Answer -->
+          <div class="chat-message msg-student animate-fade-in">
+            <span class="msg-sender student">Estudante</span>
+            <p>{{ step.answer }}</p>
+          </div>
+          <!-- LLM Reanalysis after VFU -->
+          <div 
+            *ngIf="step.hypothesisAfterVFU" 
+            style="align-self: center; background: rgba(99, 102, 241, 0.05); border: 1px dashed rgba(99, 102, 241, 0.2); border-radius: 12px; padding: 0.75rem 1rem; width: 90%; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; text-align: center; margin: 0.5rem 0;"
+            class="animate-fade-in">
+            <strong>Reanálise Cognitiva:</strong> {{ step.hypothesisAfterVFU.diagnosticHypothesis }}
+          </div>
+        </ng-container>
+
+        <!-- Current VFU question bubble (if awaiting response) -->
+        <div class="chat-message msg-ia animate-fade-in" *ngIf="session.latestHypothesis?.suggestedVFU">
+          <span class="msg-sender ia">Avaliador GenAI • VFU {{ session.currentVFUCount + 1 }}</span>
+          <p style="font-weight: 600; color: var(--text-main);">{{ session.latestHypothesis?.suggestedVFU }}</p>
+        </div>
+      </div>
+
+      <!-- Action Panel & input form -->
+      <div class="glass-panel" style="padding: 1.5rem; border-color: rgba(255, 255, 255, 0.06);">
+        <form #vfuForm="ngForm" (ngSubmit)="submitVFU()">
+          <!-- Autocomplete Demo answers -->
+          <div *ngIf="hasSuggestedAnswer()" style="margin-bottom: 1rem;">
+            <button 
+              mat-stroked-button 
+              class="btn-secondary-custom" 
+              style="width: 100%; border-color: rgba(245, 158, 11, 0.3) !important; color: #fbbf24 !important; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;" 
+              type="button" 
+              [disabled]="loadingSuggestion || submitting"
+              (click)="fillSuggestedAnswer()">
+              <mat-icon *ngIf="!loadingSuggestion" style="font-size: 1.1rem; width:18px; height:18px; margin: 0;">auto_awesome</mat-icon>
+              <mat-spinner *ngIf="loadingSuggestion" diameter="18" style="display: inline-block;"></mat-spinner>
+              <span>{{ loadingSuggestion ? 'Gerando Resposta Sugerida...' : 'Autopreencher Resposta Sugerida (Modo Demo)' }}</span>
+            </button>
+          </div>
+
+          <div style="margin-bottom: 1rem;">
+            <textarea 
+              [(ngModel)]="answer" 
+              name="answer" 
+              required 
+              rows="4" 
+              class="standard-textarea" 
+              placeholder="Digite aqui a resposta do estudante para a pergunta de verificação acima..."></textarea>
+          </div>
+
+          <button 
+            mat-flat-button 
+            class="btn-premium" 
+            style="width: 100%; padding: 1.25rem !important;" 
+            type="submit" 
+            [disabled]="!vfuForm.valid || submitting">
+            Enviar Resposta ao Diálogo
+            <mat-icon style="margin-left: 8px;">send</mat-icon>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Pane 3 (Right): Evidence Dashboard Panel -->
+    <div class="glass-panel" style="padding: 1.5rem; height: fit-content; display: flex; flex-direction: column; gap: 1.5rem;">
+      <h3 style="color: var(--color-accent); font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <mat-icon style="color: var(--color-accent);">assignment_turned_in</mat-icon>
+        Quadro de Evidências
+      </h3>
+
+      <!-- Competencies -->
+      <div>
+        <h4 style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--color-success); letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+          Demonstradas (Acertos)
+        </h4>
+        <ul class="evidence-list" style="gap: 0.5rem;">
+          <li *ngFor="let comp of session.latestHypothesis?.demonstratedCompetencies" style="font-size: 0.85rem;">
+            {{ comp }}
+          </li>
+          <li *ngIf="session.latestHypothesis?.demonstratedCompetencies?.length === 0" style="color: var(--text-muted); font-style: italic; font-size: 0.85rem;">
+            Nenhuma evidência positiva coletada ainda.
+          </li>
+        </ul>
+      </div>
+
+      <hr style="border: none; border-top: 1px solid rgba(255, 255, 255, 0.04);" />
+
+      <!-- Misconceptions & Gaps -->
+      <div>
+        <h4 style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--color-danger); letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+          Lacunas & Misconceptions
+        </h4>
+        <ul class="evidence-list gap-list" style="gap: 0.5rem;">
+          <li *ngFor="let mis of session.latestHypothesis?.misconceptionsDetected" style="font-size: 0.85rem;">
+            {{ mis }} (Detectado)
+          </li>
+          <li *ngFor="let missing of session.latestHypothesis?.missingCompetencies" style="font-size: 0.85rem;">
+            {{ missing }} (Ausente)
+          </li>
+          <li *ngIf="session.latestHypothesis?.misconceptionsDetected?.length === 0 && session.latestHypothesis?.missingCompetencies?.length === 0" style="color: var(--text-muted); font-style: italic; font-size: 0.85rem;">
+            Nenhuma lacuna detectada até o momento.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" *ngIf="session && submitting">
+  <div class="loading-content glass-panel">
+    <mat-spinner diameter="50" style="margin: 0 auto 1.5rem;"></mat-spinner>
+    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;" class="gradient-text">{{ statusMessage }}</h3>
+    <p style="font-size: 0.88rem; color: var(--text-secondary);">
+      Aguarde enquanto a Inteligência Artificial reavalia a resposta pedagógica do estudante...
+    </p>
+  </div>
+</div>
+
+<!-- Loading state (first load) -->
+<div class="container text-center" *ngIf="loading" style="padding-top: 6rem;">
+  <mat-spinner diameter="40" style="margin: 0 auto;"></mat-spinner>
+  <p style="margin-top: 1rem; color: var(--text-secondary);">Carregando laboratório de verificação...</p>
+</div>

@@ -1,0 +1,132 @@
+<div class="container animate-fade-in">
+  <!-- Back Action -->
+  <div style="margin-bottom: 1.5rem;">
+    <a routerLink="/dashboard" style="color: var(--text-secondary); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: var(--transition-smooth);" class="hover-white">
+      <mat-icon>arrow_back</mat-icon>
+      Voltar para o Dashboard
+    </a>
+  </div>
+
+  <div class="submission-grid">
+    <!-- Main Form Section -->
+    <div class="glass-panel" style="padding: 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.6rem; display: flex; align-items: center; gap: 0.5rem;">
+          <mat-icon style="color: var(--color-primary);">description</mat-icon>
+          Submissão do Aluno
+        </h2>
+        <button mat-button class="btn-secondary-custom" *ngIf="artifact || narrative" (click)="clearForm()">
+          Limpar Formulário
+        </button>
+      </div>
+
+      <!-- Demo Case Alert Banner -->
+      <div class="demo-banner animate-fade-in" *ngIf="demoCaseLoaded">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <mat-icon style="color: var(--color-warning);">auto_awesome</mat-icon>
+          <div>
+            <strong style="display: block; color: var(--text-main);">Caso de Teste Demonstrativo Carregado</strong>
+            <span style="font-size: 0.85rem; color: var(--text-secondary);">{{ demoCaseTitle }}</span>
+          </div>
+        </div>
+        <button mat-icon-button (click)="clearForm()" title="Remover caso carregado">
+          <mat-icon style="color: var(--text-secondary);">close</mat-icon>
+        </button>
+      </div>
+
+      <form #submissionForm="ngForm" (ngSubmit)="analyzeSubmission()">
+        <!-- Pre-Block Selection -->
+        <div style="margin-bottom: 1.5rem;">
+          <label class="form-label">Bloco Pedagógico Alvo</label>
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-select [(ngModel)]="selectedPreBlockId" name="preBlockId" required>
+              <mat-option *ngFor="let block of preBlocks" [value]="block.blockId">
+                {{ block.blockName }} ({{ block.blockId }})
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Artifact (Sentences) input -->
+        <div style="margin-bottom: 1.5rem;">
+          <label class="form-label">Artefato de Frases (Sentenças em Inglês)</label>
+          <div style="position: relative;">
+            <textarea 
+              [(ngModel)]="artifact" 
+              name="artifact" 
+              required 
+              rows="8" 
+              class="code-textarea" 
+              placeholder="Digite ou cole as sentenças do estudante aqui... (Ex: Yesterday I saw a movie. I have gone to school.)"></textarea>
+          </div>
+        </div>
+
+        <!-- Narrative (Explanation) input -->
+        <div style="margin-bottom: 2rem;">
+          <label class="form-label">Explicação Narrativa do Estudante</label>
+          <textarea 
+            [(ngModel)]="narrative" 
+            name="narrative" 
+            required 
+            rows="6" 
+            class="standard-textarea" 
+            placeholder="Digite ou cole a explicação do estudante sobre por que escolheu estes tempos verbais ou formas gramaticais..."></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button 
+          mat-flat-button 
+          class="btn-premium" 
+          style="width: 100%; padding: 1.5rem !important; font-size: 1.1rem !important;" 
+          type="submit" 
+          [disabled]="!submissionForm.valid || analyzing">
+          <mat-icon style="margin-right: 8px;">analytics</mat-icon>
+          Iniciar Avaliação Formativa Baseada em Evidências
+        </button>
+      </form>
+    </div>
+
+    <!-- Side Context Panel -->
+    <div class="glass-panel side-info-panel" style="padding: 2rem; height: fit-content;">
+      <h3 style="margin-bottom: 1rem; color: #60a5fa; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+        <mat-icon>info</mat-icon>
+        Contexto de Análise
+      </h3>
+      <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.25rem;">
+        Ao submeter, o sistema usará o modelo de IA para analisar as competências gramaticais demonstradas e buscar equívocos no uso de verbos no passado.
+      </p>
+      
+      <div class="info-card">
+        <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.25rem;">
+          <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-cyan); display: inline-block;"></span>
+          Detecção de Misconceptions
+        </h4>
+        <p style="font-size: 0.85rem; color: var(--text-secondary);">
+          O modelo analisa se há regularização de verbos irregulares (ex: "goed", "buyed"), uso incorreto de auxiliares ("have went") ou erros de aspecto verbal (Present Perfect com tempo concluído).
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.25rem;">
+          <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-warning); display: inline-block;"></span>
+          Verification Follow-Up (VFU)
+        </h4>
+        <p style="font-size: 0.85rem; color: var(--text-secondary);">
+          Caso haja lacunas ou incertezas diagnósticas, a IA formulará até 2 perguntas de verificação sequenciais para que o aluno responda antes do relatório final ser gerado.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Fullscreen Loading Overlay during Analysis -->
+<div class="loading-overlay" *ngIf="analyzing">
+  <div class="loading-content glass-panel">
+    <mat-spinner diameter="60" style="margin: 0 auto 1.5rem;"></mat-spinner>
+    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem;" class="gradient-text">{{ statusMessage }}</h3>
+    <p style="font-size: 0.9rem; color: var(--text-secondary);">
+      O LLM está analisando a estrutura gramatical e a lógica do estudante...
+    </p>
+  </div>
+</div>

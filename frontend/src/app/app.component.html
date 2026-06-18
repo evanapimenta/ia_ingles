@@ -1,0 +1,35 @@
+<div class="sidebar-layout">
+  <!-- Fixed Sidebar Nav -->
+  <aside class="app-sidebar">
+    <div class="brand" routerLink="/">
+      <mat-icon class="brand-icon">school</mat-icon>
+      <span class="brand-name" style="color: #6366f1;">ev<span style="color: #ffffff;">AI</span>uate</span>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a routerLink="/dashboard" routerLinkActive="active-link" class="sidebar-link">
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
+      </a>
+      <a routerLink="/submit" routerLinkActive="active-link" class="sidebar-link">
+        <mat-icon>add_circle</mat-icon>
+        Nova Avaliação
+      </a>
+      <a routerLink="/history" routerLinkActive="active-link" class="sidebar-link">
+        <mat-icon>history</mat-icon>
+        Histórico
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <p style="font-weight: 600; color: var(--text-main);">Avaliação Formativa</p>
+      <p>Artigo Grounded VFU</p>
+      <p style="margin-top: 0.5rem; font-size: 0.7rem; opacity: 0.6;">v1.0.0 Monorepo</p>
+    </div>
+  </aside>
+
+  <!-- Main Content Panel -->
+  <div class="main-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

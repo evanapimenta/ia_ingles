@@ -1,0 +1,12 @@
+{
+  "caseId": "case3",
+  "title": "Caso 3: Parcialmente Correto (1 VFU)",
+  "blockId": "english-past-verbs",
+  "description": "Estudante usa Simple Past ('saw', 'played') e Present Perfect ('have lived') de forma correta, mas falha ao usar Present Perfect com o marcador específico 'last night'.",
+  "artifact": "Yesterday, I saw a movie and played games. I have lived here for five years. But last night I have seen a star.",
+  "narrative": "Eu usei 'saw' e 'played' para falar de ontem, que já passou. Usei 'have lived' porque a ação começou no passado e continua agora. Mas usei 'have seen' no final porque ver uma estrela cadente foi uma experiência marcante para mim.",
+  "expectedVFUs": 1,
+  "suggestedAnswers": [
+    "Percebo que, mesmo sendo uma experiência importante, a expressão 'last night' especifica exatamente quando a ação ocorreu no passado. Como o tempo está definido e encerrado, devo usar o Simple Past: 'But last night I saw a star'."
+  ]
+}

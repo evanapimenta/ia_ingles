@@ -1,0 +1,98 @@
+/* Session History Styling */
+
+.session-card {
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: rgba(10, 17, 32, 0.45);
+}
+
+.session-card:hover {
+  transform: translateY(-2px);
+  background: rgba(12, 21, 39, 0.6);
+  border-color: rgba(99, 102, 241, 0.2);
+  box-shadow: var(--shadow-premium), 0 0 35px rgba(99, 102, 241, 0.08);
+}
+
+.session-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.session-card-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2rem;
+}
+
+@media (max-width: 900px) {
+  .session-card-content-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.preview-text {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  background: rgba(255, 255, 255, 0.01);
+  border-left: 2px solid rgba(255, 255, 255, 0.05);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0 8px 8px 0;
+  margin-top: 0.25rem;
+}
+
+.preview-text.italic {
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.text-truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Color Overrides for Recommendation labels */
+.color-success {
+  color: var(--color-success) !important;
+}
+
+.color-warning {
+  color: var(--color-warning) !important;
+}
+
+.color-danger {
+  color: var(--color-danger) !important;
+}
+
+/* Dropdown Select custom styling overrides */
+select option {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  padding: 0.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.metrics-grid {
+  grid-template-columns: repeat(4, 1fr) !important;
+}
+
+@media (max-width: 1100px) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .metrics-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

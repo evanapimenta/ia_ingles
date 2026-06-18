@@ -1,0 +1,178 @@
+<div class="animate-fade-in" *ngIf="session && session.teacherReport" style="display: flex; flex-direction: column; gap: 2rem;">
+  
+  <!-- Back Action and Session ID -->
+  <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1rem;">
+    <div>
+      <span style="color: var(--color-success); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.25rem;">
+        Fluxo de Avaliação Encerrado
+      </span>
+      <h1 style="font-size: 2rem; font-weight: 800; letter-spacing: -0.03em;">
+        Relatório de Diagnóstico Cognitivo
+      </h1>
+    </div>
+    
+    <div style="text-align: right;">
+      <a routerLink="/dashboard" style="color: var(--text-secondary); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: var(--transition-smooth); font-weight: 600; font-size: 0.9rem;" class="hover-white">
+        <mat-icon style="font-size: 1.2rem; width:20px; height:20px;">arrow_back</mat-icon>
+        Voltar ao Dashboard
+      </a>
+      <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">Sessão: <code>{{ session.sessionId }}</code></span>
+    </div>
+  </div>
+
+  <!-- Analytics Metrics Grid -->
+  <div class="metrics-grid">
+    <!-- Final Classification -->
+    <div class="metric-card glass-panel">
+      <span class="metric-label">Classificação do Desempenho</span>
+      <span class="badge metric-value" [ngClass]="getClassificationClass(session.teacherReport.classification)" style="margin-top: 0.25rem;">
+        {{ translateClassification(session.teacherReport.classification) }}
+      </span>
+    </div>
+
+    <!-- Recommendation -->
+    <div class="metric-card glass-panel">
+      <span class="metric-label">Recomendação Pedagógica</span>
+      <span class="badge metric-value" [ngClass]="getRecommendationClass(session.teacherReport.recommendation)" style="margin-top: 0.25rem;">
+        {{ translateRecommendation(session.teacherReport.recommendation) }}
+      </span>
+    </div>
+
+    <!-- Diagnostic Certainty -->
+    <div class="metric-card glass-panel">
+      <span class="metric-label">Grau de Certeza do Diagnóstico</span>
+      <span class="badge metric-value" 
+            [ngClass]="{
+              'badge-success': session.teacherReport.confidence === 'high',
+              'badge-warning': session.teacherReport.confidence === 'medium',
+              'badge-danger': session.teacherReport.confidence === 'low'
+            }" style="margin-top: 0.25rem;">
+        {{ translateConfidence(session.teacherReport.confidence) }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Main Analysis Block -->
+  <div class="glass-panel" style="padding: 2.25rem; display: flex; flex-direction: column; gap: 2rem;">
+    <!-- Rationale section -->
+    <div>
+      <h3 style="font-size: 1.15rem; color: var(--color-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <mat-icon style="color: var(--color-primary);">rate_review</mat-icon>
+        Parecer Descritivo do Avaliador (Rationale)
+      </h3>
+      <div class="rationale-box">
+        <p>{{ session.teacherReport.rationale }}</p>
+      </div>
+    </div>
+
+    <!-- Deficiency tags and Main Gap -->
+    <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 2rem;">
+      <!-- Main Gap Box -->
+      <div style="background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.04); padding: 1.5rem; border-radius: 12px; display: flex; flex-direction: column; gap: 0.5rem;">
+        <span class="metric-label" style="color: var(--color-warning);">Principal Lacuna / Misconception</span>
+        <p style="font-size: 1.05rem; font-weight: 700; color: var(--text-main); line-height: 1.4;">
+          {{ session.teacherReport.mainGap }}
+        </p>
+      </div>
+
+      <!-- Deficiency Profile tags list -->
+      <div style="display: flex; flex-direction: column; gap: 0.5rem;" *ngIf="session.teacherReport.deficiencyProfile.length > 0">
+        <span class="metric-label" style="color: var(--color-danger);">Padrões de Erros Detectados</span>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.25rem;">
+          <span class="deficiency-badge" *ngFor="let item of session.teacherReport.deficiencyProfile">
+            {{ item }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Collapsible timeline audit log -->
+  <div class="glass-panel" style="padding: 2.25rem;">
+    <h3 style="font-size: 1.3rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-main);">
+      <mat-icon style="color: var(--color-accent);">history</mat-icon>
+      Linha do Tempo e Evidências da Avaliação
+    </h3>
+
+    <div class="timeline">
+      <!-- Step 1: Submission -->
+      <div class="timeline-item">
+        <div class="timeline-badge" style="background: var(--color-primary);"><mat-icon>upload_file</mat-icon></div>
+        <div class="timeline-panel">
+          <div class="timeline-header">
+            <h4>Passo 1: Envio do Estudante</h4>
+            <span class="timeline-time">{{ session.createdAt | date:'shortTime' }}</span>
+          </div>
+          <div class="timeline-body">
+            <h5 class="section-sub-title">Sentenças em Inglês:</h5>
+            <div class="code-container" style="max-height: 180px; margin-bottom: 1rem;">{{ session.submission.artifact }}</div>
+            
+            <h5 class="section-sub-title">Explicação / Narrativa Conceitual:</h5>
+            <p style="color: var(--text-secondary); font-style: italic; line-height: 1.6;">
+              "{{ session.submission.narrative }}"
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dialogue steps loops -->
+      <div class="timeline-item" *ngFor="let step of session.vfuHistory; let idx = index">
+        <div class="timeline-badge" style="background: var(--color-warning);"><mat-icon>chat</mat-icon></div>
+        <div class="timeline-panel">
+          <div class="timeline-header">
+            <h4>Passo {{ idx + 2 }}: Diálogo de Verificação (VFU {{ idx + 1 }})</h4>
+            <span class="timeline-time">Interativo</span>
+          </div>
+          <div class="timeline-body" style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div>
+              <span class="section-sub-title" style="color: #fbbf24;">Pergunta VFU Formulada:</span>
+              <p style="font-style: italic; font-weight: 500; color: var(--text-main); font-size: 0.98rem; line-height: 1.5;">
+                "{{ step.question }}"
+              </p>
+            </div>
+            <div>
+              <span class="section-sub-title" style="color: var(--color-accent);">Resposta do Aluno:</span>
+              <p style="color: var(--text-secondary); line-height: 1.5;">{{ step.answer }}</p>
+            </div>
+            <div *ngIf="step.hypothesisAfterVFU" style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; margin-top: 0.25rem;">
+              <span class="section-sub-title" style="font-size: 0.75rem;">Reanálise da IA após Resposta:</span>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.4; margin-top: 0.25rem;">
+                {{ step.hypothesisAfterVFU.diagnosticHypothesis }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step Final -->
+      <div class="timeline-item">
+        <div class="timeline-badge" style="background: var(--color-success);"><mat-icon>check_circle</mat-icon></div>
+        <div class="timeline-panel">
+          <div class="timeline-header">
+            <h4>Passo Final: Parecer Consolidado</h4>
+            <span class="timeline-time">{{ session.updatedAt | date:'shortTime' }}</span>
+          </div>
+          <div class="timeline-body">
+            <p style="color: var(--text-secondary); line-height: 1.6;">
+              O diálogo foi encerrado porque todas as dúvidas cognitivas foram esclarecidas ou o limite de VFUs foi atingido. O parecer gerado indica que o aluno se enquadra em <strong>{{ translateClassification(session.teacherReport.classification) }}</strong>, com recomendação de <strong>{{ translateRecommendation(session.teacherReport.recommendation) }}</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Done button -->
+  <div style="text-align: center; margin-top: 1rem; margin-bottom: 2rem;">
+    <button mat-raised-button class="btn-premium" routerLink="/dashboard" style="padding: 1.5rem 3.5rem !important;">
+      Concluir e Voltar ao Dashboard
+      <mat-icon style="margin-left: 8px;">done_all</mat-icon>
+    </button>
+  </div>
+</div>
+
+<!-- Loader -->
+<div class="container text-center" *ngIf="loading" style="padding-top: 6rem;">
+  <mat-spinner diameter="40" style="margin: 0 auto;"></mat-spinner>
+  <p style="margin-top: 1rem; color: var(--text-secondary);">Carregando ficha de diagnóstico...</p>
+</div>

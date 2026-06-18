@@ -1,0 +1,181 @@
+<div class="animate-fade-in" style="display: flex; flex-direction: column; gap: 2rem;">
+  <!-- Header Control Center -->
+  <div style="display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap;">
+    <div>
+      <span style="color: var(--color-primary); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.25rem;">
+        Histórico Pedagógico
+      </span>
+      <h1 style="font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em;">
+        Histórico das Sessões
+      </h1>
+      <p style="color: var(--text-secondary); max-width: 650px; font-size: 0.95rem; margin-top: 0.25rem; line-height: 1.5;">
+        Acompanhe todas as avaliações formativas finalizadas, analise os desempenhos agregados e acesse os relatórios detalhados.
+      </p>
+    </div>
+
+    <!-- Quick Actions -->
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <button mat-flat-button class="btn-premium" (click)="startNewSession()">
+        <mat-icon>add_circle</mat-icon>
+        Nova Avaliação
+      </button>
+    </div>
+  </div>
+
+  <!-- Summary Statistics Grid (Pedagogical Focus) -->
+  <div class="metrics-grid">
+    <div class="metric-card glass-panel">
+      <span class="metric-label">Total Concluído</span>
+      <div style="font-size: 2.5rem; font-weight: 800; color: var(--text-main);">{{ totalSessions }}</div>
+    </div>
+    <div class="metric-card glass-panel" style="border-color: rgba(16, 185, 129, 0.15);">
+      <span class="metric-label" style="color: #34d399;">Avançar</span>
+      <div style="font-size: 2.5rem; font-weight: 800; color: #34d399;">{{ proceedCount }}</div>
+    </div>
+    <div class="metric-card glass-panel" style="border-color: rgba(245, 158, 11, 0.15);">
+      <span class="metric-label" style="color: #fbbf24;">Condicional</span>
+      <div style="font-size: 2.5rem; font-weight: 800; color: #fbbf24;">{{ conditionalCount }}</div>
+    </div>
+    <div class="metric-card glass-panel" style="border-color: rgba(239, 68, 68, 0.15);">
+      <span class="metric-label" style="color: #f87171;">Refazer</span>
+      <div style="font-size: 2.5rem; font-weight: 800; color: #f87171;">{{ reworkCount }}</div>
+    </div>
+  </div>
+
+  <!-- Filters & Search Bar -->
+  <div class="glass-panel" style="padding: 1.5rem 2rem;">
+    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center;">
+      <!-- Search Input -->
+      <div style="flex: 1; display: flex; align-items: center; background-color: #060913; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 0.25rem 1rem;">
+        <mat-icon style="color: var(--text-secondary); margin-right: 0.5rem;">search</mat-icon>
+        <input 
+          type="text" 
+          placeholder="Pesquisar por ID, conteúdo do texto, narrativa..." 
+          [(ngModel)]="searchQuery" 
+          (ngModelChange)="applyFilters()"
+          style="background: transparent; border: none; color: var(--text-main); font-family: var(--font-family); font-size: 0.95rem; width: 100%; outline: none; padding: 0.6rem 0;"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Listing -->
+  <div>
+    <!-- Loading State -->
+    <div *ngIf="loading" class="text-center" style="padding: 4rem;">
+      <mat-spinner diameter="40" style="margin: 0 auto;"></mat-spinner>
+      <p style="margin-top: 1rem; color: var(--text-secondary);">Carregando histórico...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="filteredSessions.length === 0 && !loading" class="glass-panel text-center animate-fade-in" style="padding: 5rem 2rem;">
+      <mat-icon style="font-size: 4rem; width: 64px; height: 64px; color: var(--text-muted); margin-bottom: 1.5rem;">history</mat-icon>
+      <h3 style="margin-bottom: 0.5rem; color: var(--text-main);">Nenhuma avaliação concluída</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+        Não encontramos avaliações encerradas com os filtros de busca atuais. Avalie o texto de um aluno para gerar um relatório formativo.
+      </p>
+      <button mat-raised-button class="btn-premium" (click)="startNewSession()">
+        <mat-icon>add_circle</mat-icon>
+        Iniciar Nova Avaliação
+      </button>
+    </div>
+
+    <!-- Sessions List (If data exists) -->
+    <div *ngIf="filteredSessions.length > 0 && !loading" style="display: flex; flex-direction: column; gap: 1.5rem;">
+      <div 
+        *ngFor="let session of filteredSessions" 
+        class="glass-panel session-card animate-fade-in" 
+        style="padding: 1.75rem; transition: var(--transition-smooth);"
+      >
+        <!-- Card Header -->
+        <div class="session-card-header">
+          <div>
+            <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+              Sessão • ID: {{ session.sessionId }}
+            </span>
+            <h3 style="font-size: 1.25rem; font-weight: 800; margin-top: 0.25rem; display: flex; align-items: center; gap: 0.5rem;">
+              <mat-icon style="color: var(--color-primary); font-size: 1.5rem; width: 24px; height: 24px;">school</mat-icon>
+              {{ getPreBlockName(session.preBlockId) }}
+            </h3>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <span style="font-size: 0.85rem; color: var(--text-secondary);">
+              {{ session.createdAt | date: 'dd/MM/yyyy HH:mm' }}
+            </span>
+            <span class="badge" [ngClass]="{
+              'badge-success': session.teacherReport?.recommendation === 'Proceed',
+              'badge-warning': session.teacherReport?.recommendation === 'Conditional Progression',
+              'badge-danger': session.teacherReport?.recommendation === 'Rework'
+            }">
+              {{ getRecommendationLabel(session.teacherReport?.recommendation) }}
+            </span>
+          </div>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid rgba(255, 255, 255, 0.05); margin: 1.25rem 0;" />
+
+        <!-- Card Content Grid -->
+        <div class="session-card-content-grid">
+          <!-- Text Artifact Context -->
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div>
+              <span class="section-sub-title">Texto do Estudante</span>
+              <p class="preview-text text-truncate">{{ session.submission.artifact }}</p>
+            </div>
+            <div>
+              <span class="section-sub-title">Explicação Narrativa</span>
+              <p class="preview-text text-truncate italic">"{{ session.submission.narrative }}"</p>
+            </div>
+          </div>
+
+          <!-- pedagogical summary column -->
+          <div class="pedagogical-summary-pane" style="background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.03); border-radius: 12px; padding: 1rem 1.25rem; display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem;">
+            <div>
+              <span class="section-sub-title">Resultado Pedagógico</span>
+              
+              <!-- Case: Session Completed -->
+              <div *ngIf="session.teacherReport" style="margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="font-size: 0.85rem; color: var(--text-secondary);">Classificação:</span>
+                  <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);">
+                    {{ getClassificationLabel(session.teacherReport.classification) }}
+                  </span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="font-size: 0.85rem; color: var(--text-secondary);">Recomendação:</span>
+                  <span style="font-size: 0.85rem; font-weight: 700;" [ngClass]="{
+                    'color-success': session.teacherReport.recommendation === 'Proceed',
+                    'color-warning': session.teacherReport.recommendation === 'Conditional Progression',
+                    'color-danger': session.teacherReport.recommendation === 'Rework'
+                  }">
+                    {{ getRecommendationLabel(session.teacherReport.recommendation) }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interações VFU Count footer metric inside right panel -->
+            <div style="font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.35rem; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 0.5rem; margin-top: auto;">
+              <mat-icon style="font-size: 1rem; width: 16px; height: 16px; color: var(--text-muted);">chat_bubble_outline</mat-icon>
+              {{ session.vfuHistory.length }} Pergunta(s) VFU realizadas
+            </div>
+          </div>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid rgba(255, 255, 255, 0.05); margin: 1.25rem 0;" />
+
+        <!-- Card Footer Actions -->
+        <div style="display: flex; justify-content: flex-end; gap: 1rem; align-items: center;">
+          <button 
+            mat-flat-button 
+            class="btn-secondary-custom"
+            (click)="viewSession(session)"
+          >
+            <mat-icon>assignment_turned_in</mat-icon>
+            <span>Ver Relatório Final</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
